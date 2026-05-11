@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台灣鳥類棲息地探索</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3a2a;
+    --moss: #2d5a3d;
+    --leaf: #4a8c5c;
+    --sage: #8fbc8f;
+    --mist: #c8dfc8;
+    --sky: #e8f4f0;
+    --water: #2563a8;
+    --sand: #f5ede0;
+    --bark: #6b4c35;
+    --dawn: #f0a050;
+    --dusk: #c06030;
+    --cream: #faf7f2;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--forest);
+    font-family: 'Noto Sans TC', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--forest);
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 50%, #2d5a3d 0%, #1a3a2a 60%, #0d1f15 100%);
+  }
+
+  /* Silhouette trees */
+  .trees {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 45%;
+    background: linear-gradient(to top, #0a1a10 0%, transparent 100%);
+  }
+  .trees::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 100%;
+    background-image:
+      radial-gradient(ellipse 18px 60px at 8% 100%, #0a1a10 50%, transparent 51%),
+      radial-gradient(ellipse 24px 80px at 15% 100%, #0a1a10 50%, transparent 51%),
+      radial-gradient(ellipse 20px 70px at 23% 100%, #0a1a10 50%, transparent 51%),
+      radial-gradient(ellipse 30px 100px at 33% 100%, #0a1a10 50%, transparent 51%),
+      radial-gradient(ellipse 22px 75px at 42% 100%, #0a1a10 50%, transparent 51%),
+      radial-gradient(ellipse 16px 55px at 50% 100%, #0a1a10 50%, transparent 51%),
+      radial-gradient(ellipse 26px 88px at 60% 100%, #0a1a10 50%, transparent 51%),
+      radial-gradient(ellipse 20px 65px at 70% 100%, #0a1a10 50%, transparent 51%),
+      radial-gradient(ellipse 28px 95px at 80% 100%, #0a1a10 50%, transparent 51%),
+      radial-gradient(ellipse 18px 60px at 90% 100%, #0a1a10 50%, transparent 51%),
+      radial-gradient(ellipse 22px 72px at 97% 100%, #0a1a10 50%, transparent 51%);
+  }
+
+  /* Flying birds animation */
+  .birds-fly {
+    position: absolute; top: 20%; left: 10%;
+    animation: fly 18s linear infinite;
+  }
+  .bird-shape {
+    display: inline-block;
+    width: 16px; height: 5px;
+    border-top: 2px solid rgba(200,223,200,0.6);
+    border-radius: 50% 50% 0 0;
+    margin: 0 3px;
+    animation: flap 0.6s ease-in-out infinite alternate;
+  }
+  .bird-shape:nth-child(2) { animation-delay: 0.1s; transform: scale(0.8); }
+  .bird-shape:nth-child(3) { animation-delay: 0.2s; transform: scale(0.6); margin-left: 6px; }
+  .bird-shape:nth-child(4) { animation-delay: 0.15s; transform: scale(0.7); }
+  @keyframes fly {
+    0% { transform: translateX(-100px) translateY(0); }
+    50% { transform: translateX(60vw) translateY(-30px); }
+    100% { transform: translateX(120vw) translateY(10px); }
+  }
+  @keyframes flap {
+    from { border-top-width: 2px; border-radius: 50% 50% 0 0; }
+    to { border-top-width: 0; border-bottom-width: 2px; border-bottom: 2px solid rgba(200,223,200,0.6); border-radius: 0 0 50% 50%; }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 8vw;
+    max-width: 680px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--sage);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block; width: 32px; height: 1px;
+    background: var(--sage);
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--mist);
+    margin-bottom: 0.3em;
+  }
+  .hero h1 em {
+    color: var(--sage);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(200,223,200,0.65);
+    margin: 1.5rem 0 2.5rem;
+    max-width: 420px;
+  }
+
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--dawn);
+    color: var(--forest);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 14px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .hero-cta:hover { transform: translateY(-2px); background: #f5b060; }
+
+  .hero-stat-row {
+    position: absolute;
+    bottom: 3rem; right: 8vw;
+    display: flex; gap: 2.5rem;
+    z-index: 2;
+  }
+  .hero-stat { text-align: right; }
+  .hero-stat strong {
+    display: block;
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    color: var(--sage);
+    line-height: 1;
+  }
+  .hero-stat span {
+    font-size: 11px;
+    color: rgba(200,223,200,0.5);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 6rem 8vw; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--leaf);
+    margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before {
+    content: '';
+    width: 20px; height: 1px; background: var(--leaf);
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.15;
+    color: var(--forest);
+    margin-bottom: 1rem;
+  }
+
+  .section-desc {
+    font-size: 14px;
+    line-height: 1.9;
+    color: #4a6a5a;
+    max-width: 520px;
+  }
+
+  /* ── HABITATS ── */
+  #habitats { background: var(--cream); }
+
+  .habitats-intro {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    flex-wrap: wrap; gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .habitat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 16px;
+  }
+
+  .habitat-card {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .habitat-card:hover { transform: translateY(-4px); }
+  .habitat-card:first-child {
+    grid-row: span 2;
+    min-height: 480px;
+  }
+  .habitat-card:not(:first-child) { min-height: 220px; }
+
+  .habitat-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s;
+  }
+  .habitat-card:hover .habitat-bg { transform: scale(1.04); }
+
+  .hab-mountain .habitat-bg { background: linear-gradient(160deg, #1a3a2a 0%, #2d5a3d 40%, #4a8c5c 100%); }
+  .hab-wetland .habitat-bg  { background: linear-gradient(160deg, #0a2040 0%, #1a4080 50%, #2563a8 100%); }
+  .hab-forest .habitat-bg   { background: linear-gradient(160deg, #1a2a10 0%, #2a4a1a 50%, #3a6a2a 100%); }
+  .hab-coast .habitat-bg    { background: linear-gradient(160deg, #1a1a30 0%, #304060 50%, #4a7090 100%); }
+
+  /* decorative circles */
+  .hab-mountain .habitat-bg::after {
+    content: '';
+    position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,200,100,0.12) 0%, transparent 70%);
+  }
+
+  .habitat-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,20,12,0.85) 0%, rgba(10,20,12,0.1) 60%, transparent 100%);
+  }
+
+  .habitat-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.5rem 1.5rem 1.8rem;
+    z-index: 2;
+  }
+
+  .hab-tag {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(200,223,200,0.6);
+    margin-bottom: 0.4rem;
+  }
+
+  .habitat-info h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: #e8f4f0;
+    margin-bottom: 0.4rem;
+  }
+  .habitat-card:not(:first-child) .habitat-info h3 { font-size: 1.2rem; }
+
+  .habitat-info p {
+    font-size: 12px;
+    color: rgba(200,223,200,0.6);
+    line-height: 1.6;
+    display: none;
+  }
+  .habitat-card:first-child .habitat-info p { display: block; }
+
+  .hab-birds {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-top: 0.8rem;
+  }
+  .hab-bird-tag {
+    background: rgba(255,255,255,0.12);
+    color: rgba(200,223,200,0.8);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(200,223,200,0.2);
+  }
+
+  /* ── SPECIES SPOTLIGHT ── */
+  #species {
+    background: var(--forest);
+    color: var(--mist);
+  }
+
+  #species .section-title { color: var(--mist); }
+  #species .section-desc { color: rgba(200,223,200,0.55); }
+  #species .section-label { color: var(--sage); }
+  #species .section-label::before { background: var(--sage); }
+
+  .species-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    flex-wrap: wrap; gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .species-tabs {
+    display: flex; gap: 8px;
+  }
+  .species-tab {
+    font-size: 12px;
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(200,223,200,0.2);
+    background: transparent;
+    color: rgba(200,223,200,0.5);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+  .species-tab.active, .species-tab:hover {
+    background: var(--leaf);
+    border-color: var(--leaf);
+    color: var(--cream);
+  }
+
+  .species-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .species-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200,223,200,0.1);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: background 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .species-card:hover {
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-3px);
+  }
+
+  .species-icon {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 1rem;
+  }
+  .icon-endemic { background: rgba(74,140,92,0.2); }
+  .icon-migratory { background: rgba(37,99,168,0.25); }
+  .icon-rare { background: rgba(192,96,48,0.2); }
+
+  .species-card h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--mist);
+    margin-bottom: 3px;
+  }
+  .species-card .sci-name {
+    font-size: 11px;
+    font-style: italic;
+    color: rgba(200,223,200,0.35);
+    margin-bottom: 0.8rem;
+  }
+  .species-card p {
+    font-size: 12px;
+    line-height: 1.8;
+    color: rgba(200,223,200,0.55);
+  }
+
+  .species-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-top: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  .badge-endemic  { background: rgba(74,140,92,0.25);  color: var(--sage); }
+  .badge-migrate  { background: rgba(37,99,168,0.3);   color: #90c0f0; }
+  .badge-rare     { background: rgba(192,96,48,0.25);  color: #e09060; }
+
+  /* ── MIGRATION ── */
+  #migration { background: var(--sand); }
+
+  .migration-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+
+  .migration-map {
+    position: relative;
+    background: #e0eff8;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    max-height: 460px;
+  }
+
+  .migration-map svg {
+    width: 100%; height: 100%;
+  }
+
+  .migration-info h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--forest);
+    margin-bottom: 1rem;
+  }
+
+  .route-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .route-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 16px;
+    background: white;
+    border-radius: 10px;
+    border-left: 3px solid var(--leaf);
+  }
+  .route-item .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--leaf);
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+  .route-item strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--forest);
+    margin-bottom: 3px;
+  }
+  .route-item span {
+    font-size: 12px;
+    color: #6a8a7a;
+    line-height: 1.6;
+  }
+
+  /* ── QUIZ ── */
+  #quiz { background: var(--cream); }
+
+  .quiz-wrap {
+    max-width: 660px;
+    margin: 3rem auto 0;
+  }
+
+  .quiz-progress {
+    display: flex; gap: 6px; margin-bottom: 2rem;
+  }
+  .prog-dot {
+    height: 4px; flex: 1;
+    background: var(--mist);
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .prog-dot.done { background: var(--leaf); }
+
+  .quiz-box {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 2px 24px rgba(26,58,42,0.08);
+  }
+
+  .quiz-num {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--leaf);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .quiz-q-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--forest);
+    margin-bottom: 2rem;
+  }
+
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+
+  .quiz-opt-btn {
+    text-align: left;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1.5px solid #d8e8d8;
+    background: #f8fbf8;
+    color: var(--forest);
+    font-size: 13px;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer;
+    transition: all 0.18s;
+    line-height: 1.6;
+  }
+  .quiz-opt-btn:hover:not(:disabled) {
+    border-color: var(--leaf);
+    background: #f0f8f0;
+  }
+  .quiz-opt-btn.correct { border-color: #2d8a4a; background: #e8f8ee; color: #1a5a2a; }
+  .quiz-opt-btn.wrong   { border-color: #c04030; background: #fdf0ee; color: #702020; }
+
+  .quiz-feedback {
+    margin-top: 1.2rem;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.7;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct { background: #e8f8ee; color: #1a5a2a; }
+  .quiz-feedback.wrong   { background: #fdf0ee; color: #702020; }
+
+  .quiz-next {
+    margin-top: 1.5rem;
+    background: var(--forest);
+    color: var(--sage);
+    border: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer;
+    display: none;
+    transition: background 0.2s;
+  }
+  .quiz-next.show { display: inline-block; }
+  .quiz-next:hover { background: var(--moss); }
+
+  /* ── CONSERVATION ── */
+  #conservation { background: var(--forest); color: var(--mist); }
+  #conservation .section-title { color: var(--mist); }
+  #conservation .section-desc { color: rgba(200,223,200,0.55); }
+  #conservation .section-label { color: var(--sage); }
+  #conservation .section-label::before { background: var(--sage); }
+
+  .cons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 3rem;
+  }
+  .cons-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200,223,200,0.1);
+    border-radius: 14px;
+    padding: 1.6rem;
+  }
+  .cons-icon {
+    font-size: 28px;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .cons-card h4 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--mist);
+    margin-bottom: 0.5rem;
+  }
+  .cons-card p {
+    font-size: 12px;
+    line-height: 1.8;
+    color: rgba(200,223,200,0.5);
+  }
+  .cons-card .cons-btn {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-size: 11px;
+    color: var(--sage);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(143,188,143,0.3);
+    padding-bottom: 1px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .cons-card .cons-btn:hover { color: var(--mist); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0d1f15;
+    padding: 3rem 8vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--sage);
+  }
+  footer p {
+    font-size: 12px;
+    color: rgba(200,223,200,0.3);
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 8vw;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(10,20,12,0.92);
+    backdrop-filter: blur(10px);
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--sage);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex; gap: 1.8rem; list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px;
+    color: rgba(200,223,200,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--mist); }
+
+  @media (max-width: 768px) {
+    .habitat-grid { grid-template-columns: 1fr; }
+    .habitat-card:first-child { grid-row: span 1; min-height: 280px; }
+    .species-grid { grid-template-columns: 1fr; }
+    .migration-layout { grid-template-columns: 1fr; }
+    .cons-grid { grid-template-columns: 1fr; }
+    .hero-stat-row { position: static; flex-direction: row; padding: 2rem 8vw 0; justify-content: flex-start; }
+    .hero-stat { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="#" class="nav-logo">羽翼台灣</a>
+  <ul class="nav-links">
+    <li><a href="#habitats">棲息地</a></li>
+    <li><a href="#species">物種</a></li>
+    <li><a href="#migration">遷徙</a></li>
+    <li><a href="#quiz">測驗</a></li>
+    <li><a href="#conservation">保育</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="trees"></div>
+  <div class="birds-fly">
+    <span class="bird-shape"></span>
+    <span class="bird-shape"></span>
+    <span class="bird-shape"></span>
+    <span class="bird-shape"></span>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">台灣鳥類生態學習平台</div>
+    <h1>探索<br><em>羽翼下</em><br>的台灣</h1>
+    <p class="hero-sub">從雲霧繚繞的高山到波光粼粼的濕地，台灣的每一片土地都是鳥兒的舞台。一起認識這座島嶼上超過 700 種鳥類的生活與棲息地。</p>
+    <a href="#habitats" class="hero-cta">開始探索 →</a>
+  </div>
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <strong>700+</strong>
+      <span>記錄鳥種</span>
+    </div>
+    <div class="hero-stat">
+      <strong>30+</strong>
+      <span>特有種</span>
+    </div>
+    <div class="hero-stat">
+      <strong>5</strong>
+      <span>主要棲息地</span>
+    </div>
+  </div>
+</section>
+
+<!-- HABITATS -->
+<section id="habitats">
+  <div class="habitats-intro fade-up">
+    <div>
+      <div class="section-label">棲息地類型</div>
+      <h2 class="section-title">鳥兒的<br>五種家園</h2>
+    </div>
+    <p class="section-desc">台灣地形多樣，從海平面到海拔三千公尺皆有不同生態系統，孕育了豐富多樣的鳥類群落。</p>
+  </div>
+
+  <div class="habitat-grid fade-up">
+    <div class="habitat-card hab-mountain">
+      <div class="habitat-bg"></div>
+      <div class="habitat-overlay"></div>
+      <div class="habitat-info">
+        <div class="hab-tag">海拔 2500m 以上</div>
+        <h3>高山針葉林</h3>
+        <p>玉山、雪山等高峰的針葉林帶，是帝雉、火冠戴菊等珍稀特有種的核心棲地，四季雲霧繚繞，生態神祕而脆弱。</p>
+        <div class="hab-birds">
+          <span class="hab-bird-tag">帝雉</span>
+          <span class="hab-bird-tag">火冠戴菊</span>
+          <span class="hab-bird-tag">酒紅朱雀</span>
+          <span class="hab-bird-tag">岩鷚</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="habitat-card hab-wetland">
+      <div class="habitat-bg"></div>
+      <div class="habitat-overlay"></div>
+      <div class="habitat-info">
+        <div class="hab-tag">河口 · 沼澤 · 魚塭</div>
+        <h3>濕地與河口</h3>
+        <div class="hab-birds">
+          <span class="hab-bird-tag">黑面琵鷺</span>
+          <span class="hab-bird-tag">高蹺鴴</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="habitat-card hab-forest">
+      <div class="habitat-bg"></div>
+      <div class="habitat-overlay"></div>
+      <div class="habitat-info">
+        <div class="hab-tag">低海拔闊葉林</div>
+        <h3>山林與丘陵</h3>
+        <div class="hab-birds">
+          <span class="hab-bird-tag">台灣藍鵲</span>
+          <span class="hab-bird-tag">台灣紫嘯鶇</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="habitat-card hab-coast">
+      <div class="habitat-bg"></div>
+      <div class="habitat-overlay"></div>
+      <div class="habitat-info">
+        <div class="hab-tag">海岸 · 離島</div>
+        <h3>海岸與離島</h3>
+        <div class="hab-birds">
+          <span class="hab-bird-tag">鳳頭燕鷗</span>
+          <span class="hab-bird-tag">黑尾鷗</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIES -->
+<section id="species">
+  <div class="species-header fade-up">
+    <div>
+      <div class="section-label">精選物種</div>
+      <h2 class="section-title">認識<br>台灣的鳥兒</h2>
+    </div>
+    <div class="species-tabs">
+      <button class="species-tab active" onclick="filterSpecies('all', this)">全部</button>
+      <button class="species-tab" onclick="filterSpecies('endemic', this)">特有種</button>
+      <button class="species-tab" onclick="filterSpecies('migratory', this)">候鳥</button>
+      <button class="species-tab" onclick="filterSpecies('rare', this)">珍稀</button>
+    </div>
+  </div>
+
+  <div class="species-grid fade-up" id="speciesGrid">
+    <div class="species-card" data-type="endemic">
+      <div class="species-icon icon-endemic">🦚</div>
+      <h4>帝雉</h4>
+      <div class="sci-name">Syrmaticus mikado</div>
+      <p>台灣海拔最高的雉科鳥類，雄鳥羽色絢爛，是500元紙幣上的圖案。棲息於海拔2000–3300m的針葉林及箭竹坡地。</p>
+      <span class="species-badge badge-endemic">台灣特有種</span>
+    </div>
+    <div class="species-card" data-type="rare">
+      <div class="species-icon icon-rare">🦢</div>
+      <h4>黑面琵鷺</h4>
+      <div class="sci-name">Platalea minor</div>
+      <p>全球族群僅約6,000隻，台南曾文溪口濕地是全球最重要的越冬地，每年10月至翌年4月可見其蹤跡。</p>
+      <span class="species-badge badge-rare">全球瀕危</span>
+    </div>
+    <div class="species-card" data-type="endemic">
+      <div class="species-icon icon-endemic">🐦</div>
+      <h4>台灣藍鵲</h4>
+      <div class="sci-name">Urocissa caerulea</div>
+      <p>全身藍黑、尾羽修長，棲息於低海拔闊葉林。2007年票選為台灣國鳥，具有強烈的護巢行為。</p>
+      <span class="species-badge badge-endemic">台灣特有種</span>
+    </div>
+    <div class="species-card" data-type="migratory">
+      <div class="species-icon icon-migratory">🦅</div>
+      <h4>灰面鵟鷹</h4>
+      <div class="sci-name">Butastur indicus</div>
+      <p>每年秋季過境台灣，數量最多可達數萬隻。墾丁國家公園是最佳觀賞點，當地有「國慶鳥」之稱。</p>
+      <span class="species-badge badge-migrate">過境候鳥</span>
+    </div>
+    <div class="species-card" data-type="endemic">
+      <div class="species-icon icon-endemic">🦜</div>
+      <h4>台灣紫嘯鶇</h4>
+      <div class="sci-name">Myophonus insularis</div>
+      <p>全身深藍紫色，常在溪澗附近活動，叫聲如高鐵剎車般尖銳。台灣特有種，分布於全島中低海拔山澗。</p>
+      <span class="species-badge badge-endemic">台灣特有種</span>
+    </div>
+    <div class="species-card" data-type="migratory">
+      <div class="species-icon icon-migratory">🕊️</div>
+      <h4>赤腹鷹</h4>
+      <div class="sci-name">Accipiter soloensis</div>
+      <p>春季北返時大量過境台灣，以墾丁社頂公園一帶最為壯觀，單日有時可見數千隻盤旋而過。</p>
+      <span class="species-badge badge-migrate">過境候鳥</span>
+    </div>
+  </div>
+</section>
+
+<!-- MIGRATION -->
+<section id="migration">
+  <div class="fade-up">
+    <div class="section-label">遷徙路徑</div>
+    <h2 class="section-title">穿越台灣的<br>飛行旅程</h2>
+  </div>
+  <div class="migration-layout fade-up">
+    <div class="migration-map">
+      <svg viewBox="0 0 240 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- sea -->
+        <rect width="240" height="320" fill="#c8dff0"/>
+        <!-- taiwan shape simplified -->
+        <path d="M100 30 L140 25 L165 55 L175 90 L178 130 L170 170 L155 210 L135 250 L118 275 L100 260 L88 230 L80 190 L75 150 L78 110 L85 70 Z" fill="#c8dfc8" stroke="#8fbc8f" stroke-width="1.5"/>
+        <!-- mountain indication -->
+        <path d="M115 80 L130 55 L145 80" fill="#9fbc9f" stroke="none"/>
+        <path d="M108 110 L120 88 L132 110" fill="#9fbc9f" stroke="none"/>
+        <!-- migration arrows -->
+        <path d="M60 20 Q100 45 115 80" stroke="#2563a8" stroke-width="2" stroke-dasharray="5 3" fill="none" marker-end="url(#arr)"/>
+        <path d="M180 20 Q160 50 145 80" stroke="#2563a8" stroke-width="2" stroke-dasharray="5 3" fill="none" marker-end="url(#arr)"/>
+        <path d="M115 280 Q105 295 80 310" stroke="#c06030" stroke-width="2" stroke-dasharray="5 3" fill="none" marker-end="url(#arr2)"/>
+        <!-- hotspot dots -->
+        <circle cx="120" cy="265" r="5" fill="#f0a050" opacity="0.9"/>
+        <circle cx="138" cy="165" r="4" fill="#4a8c5c" opacity="0.9"/>
+        <circle cx="108" cy="105" r="4" fill="#4a8c5c" opacity="0.9"/>
+        <circle cx="90" cy="195" r="4" fill="#2563a8" opacity="0.9"/>
+        <!-- labels -->
+        <text x="124" y="263" font-size="7" fill="#6b4c35" font-family="sans-serif">墾丁</text>
+        <text x="142" y="163" font-size="7" fill="#1a3a2a" font-family="sans-serif">阿里山</text>
+        <text x="82" y="192" font-size="7" fill="#1a3a6a" font-family="sans-serif">曾文溪口</text>
+        <text x="55" y="18" font-size="8" fill="#2563a8" font-family="sans-serif">秋季南遷</text>
+        <text x="158" y="18" font-size="8" fill="#2563a8" font-family="sans-serif">東部航線</text>
+        <defs>
+          <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#2563a8"/>
+          </marker>
+          <marker id="arr2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#c06030"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="migration-info">
+      <h3>台灣是候鳥的中繼站</h3>
+      <p style="font-size:13px;color:#4a6a5a;line-height:1.8;margin-bottom:1.5rem">台灣位於東亞候鳥遷徙路線的關鍵位置，每年春秋兩季有大量鳥類過境，部分留台越冬，成為重要的生態驛站。</p>
+      <ul class="route-list">
+        <li class="route-item">
+          <div class="dot"></div>
+          <div>
+            <strong>秋季南遷（9–11月）</strong>
+            <span>灰面鵟鷹、赤腹鷹等猛禽大批過境墾丁，是全球知名的猛禽遷徙奇觀</span>
+          </div>
+        </li>
+        <li class="route-item">
+          <div class="dot" style="background:var(--water)"></div>
+          <div>
+            <strong>越冬棲地（10月–4月）</strong>
+            <span>黑面琵鷺、鸕鶿等水鳥在台南、嘉義濕地越冬，數量穩定成長</span>
+          </div>
+        </li>
+        <li class="route-item">
+          <div class="dot" style="background:var(--dawn)"></div>
+          <div>
+            <strong>春季北返（3–5月）</strong>
+            <span>赤腹鷹在4月大量過境，墾丁社頂可見數千隻盤旋，蔚為壯觀</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="fade-up" style="text-align:center;margin-bottom:0">
+    <div class="section-label" style="justify-content:center">知識測驗</div>
+    <h2 class="section-title">你了解台灣鳥類嗎？</h2>
+    <p class="section-desc" style="margin:0.5rem auto 0;text-align:center">挑戰五道題，測試你對台灣鳥類生態的認識</p>
+  </div>
+
+  <div class="quiz-wrap fade-up">
+    <div class="quiz-progress" id="quizProgress"></div>
+    <div class="quiz-box">
+      <div class="quiz-num" id="qNum"></div>
+      <div class="quiz-q-text" id="qText"></div>
+      <div class="quiz-options" id="qOpts"></div>
+      <div class="quiz-feedback" id="qFeedback"></div>
+      <button class="quiz-next" id="qNext" onclick="nextQuestion()">下一題 →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CONSERVATION -->
+<section id="conservation">
+  <div class="fade-up">
+    <div class="section-label">保育行動</div>
+    <h2 class="section-title">我們能做什麼</h2>
+    <p class="section-desc">了解台灣鳥類保育的現況與挑戰，以及每個人能參與的具體行動。</p>
+  </div>
+  <div class="cons-grid fade-up">
+    <div class="cons-card">
+      <span class="cons-icon">📊</span>
+      <h4>公民科學記錄</h4>
+      <p>透過 eBird 等平台記錄賞鳥資料，這些資料成為科學研究與保育政策的重要依據。每一筆記錄都有意義。</p>
+      <span class="cons-btn">了解 eBird Taiwan →</span>
+    </div>
+    <div class="cons-card">
+      <span class="cons-icon">🌿</span>
+      <h4>棲地保護與復育</h4>
+      <p>支持濕地保育計畫、減少農藥使用、維護溪流廊道，都是保護鳥類棲息環境的重要方式。</p>
+      <span class="cons-btn">棲地保育資訊 →</span>
+    </div>
+    <div class="cons-card">
+      <span class="cons-icon">💡</span>
+      <h4>友善環境行動</h4>
+      <p>減少光害與噪音污染、使用鳥類友善建築玻璃、避免放養貓隻干擾野生鳥類，從日常生活做起。</p>
+      <span class="cons-btn">友善指南 →</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">羽翼台灣</div>
+  <p>台灣鳥類棲息地教學網站 · 高中生態課程資源</p>
+</footer>
+
+<script>
+// NAV SCROLL
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// FADE IN
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+// SPECIES FILTER
+function filterSpecies(type, btn) {
+  document.querySelectorAll('.species-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.species-card').forEach(card => {
+    card.style.display = (type === 'all' || card.dataset.type === type) ? 'block' : 'none';
+  });
+}
+
+// QUIZ
+const questions = [
+  {
+    q: '台灣藍鵲（Urocissa caerulea）是台灣特有種，主要棲息於哪種環境？',
+    opts: ['高山針葉林（海拔2500m以上）', '低海拔闊葉林與丘陵地帶', '海岸紅樹林', '農田與城市公園'],
+    ans: 1,
+    explain: '台灣藍鵲主要棲息在低海拔的闊葉林環境，分布於台灣全島海拔300–1200m的山區，常見於北部山區溪谷地帶。'
+  },
+  {
+    q: '每年秋季大量過境墾丁、被稱為「國慶鳥」的猛禽是哪一種？',
+    opts: ['黑面琵鷺', '帝雉', '灰面鵟鷹', '鳳頭燕鷗'],
+    ans: 2,
+    explain: '灰面鵟鷹每年10月上旬（國慶日前後）大量過境墾丁，數量有時達數萬隻，因此被稱為「國慶鳥」。'
+  },
+  {
+    q: '黑面琵鷺的英文名 Black-faced Spoonbill，「Spoonbill」指的是什麼特徵？',
+    opts: ['黑色的臉部', '像湯匙的扁平嘴喙', '白色的羽毛', '長而優雅的頸部'],
+    ans: 1,
+    explain: '黑面琵鷺最明顯的特徵是扁平如湯匙（Spoon）狀的嘴喙，覓食時會在淺水中左右掃動，藉此捕捉魚蝦。'
+  },
+  {
+    q: '下列哪個地點是台灣最重要的黑面琵鷺越冬棲地？',
+    opts: ['宜蘭龜山島', '台南曾文溪口', '澎湖南方四島', '墾丁龍鑾潭'],
+    ans: 1,
+    explain: '台南曾文溪口濕地是全球最重要的黑面琵鷺越冬地，每年聚集全球族群的約三分之一至二分之一。'
+  },
+  {
+    q: '台灣有多少種鳥類被列為「台灣特有種」（僅在台灣繁殖、不見於其他地區）？',
+    opts: ['約10種', '約30種', '約80種', '約150種'],
+    ans: 1,
+    explain: '台灣目前有約30種特有種鳥類，包括帝雉、台灣藍鵲、台灣紫嘯鶇等，佔全球特有種比例相當高，顯示台灣生物多樣性的珍貴。'
+  }
+];
+
+let current = 0, answered = false;
+
+function initQuiz() {
+  const prog = document.getElementById('quizProgress');
+  prog.innerHTML = questions.map((_, i) => `<div class="prog-dot" id="pd${i}"></div>`).join('');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  answered = false;
+  const q = questions[current];
+  document.getElementById('qNum').textContent = `題目 ${current + 1} / ${questions.length}`;
+  document.getElementById('qText').textContent = q.q;
+  const fb = document.getElementById('qFeedback');
+  fb.className = 'quiz-feedback'; fb.textContent = '';
+  document.getElementById('qNext').className = 'quiz-next';
+
+  const opts = document.getElementById('qOpts');
+  opts.innerHTML = q.opts.map((o, i) =>
+    `<button class="quiz-opt-btn" onclick="answer(${i})">${o}</button>`
+  ).join('');
+}
+
+function answer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const btns = document.querySelectorAll('.quiz-opt-btn');
+  btns.forEach(b => b.disabled = true);
+  btns[idx].classList.add(idx === q.ans ? 'correct' : 'wrong');
+  if (idx !== q.ans) btns[q.ans].classList.add('correct');
+
+  const fb = document.getElementById('qFeedback');
+  fb.textContent = (idx === q.ans ? '✓ 答對了！' : '✗ 答錯了。') + '　' + q.explain;
+  fb.className = 'quiz-feedback show ' + (idx === q.ans ? 'correct' : 'wrong');
+
+  document.getElementById(`pd${current}`).classList.add('done');
+  document.getElementById('qNext').className = 'quiz-next show';
+  if (current === questions.length - 1) document.getElementById('qNext').textContent = '查看結果 ✓';
+}
+
+function nextQuestion() {
+  current++;
+  if (current >= questions.length) {
+    const correct = document.querySelectorAll('.prog-dot.done').length;
+    document.getElementById('qOpts').innerHTML = '';
+    document.getElementById('qFeedback').className = 'quiz-feedback';
+    document.getElementById('qNext').className = 'quiz-next';
+    document.getElementById('qNum').textContent = '測驗完成！';
+    document.getElementById('qText').textContent = `你答對了 ${correct} / ${questions.length} 題！${correct >= 4 ? ' 很棒，你對台灣鳥類有深入的了解！' : correct >= 2 ? ' 還不錯，繼續探索更多鳥類知識吧！' : ' 多閱讀各棲息地的介紹，下次會更好！'}`;
+    return;
+  }
+  renderQuestion();
+}
+
+initQuiz();
+</script>
+</body>
+</html>
