@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="羽翼台灣是一個專為高中生態與生物課程設計的台灣鳥類生態學習平台。探索台灣 700 多種鳥類的五大主要棲息地、特有與珍稀物種、東亞候鳥遷徙路徑，並提供互動知識測驗與保育行動指南。">
 <title>台灣鳥類棲息地探索</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -246,6 +247,7 @@
   .hab-wetland .habitat-bg  { background: linear-gradient(160deg, #0a2040 0%, #1a4080 50%, #2563a8 100%); }
   .hab-forest .habitat-bg   { background: linear-gradient(160deg, #1a2a10 0%, #2a4a1a 50%, #3a6a2a 100%); }
   .hab-coast .habitat-bg    { background: linear-gradient(160deg, #1a1a30 0%, #304060 50%, #4a7090 100%); }
+  .hab-plains .habitat-bg   { background: linear-gradient(160deg, #5b5036 0%, #8c7b5c 50%, #b8a88f 100%); }
 
   /* decorative circles */
   .hab-mountain .habitat-bg::after {
@@ -352,8 +354,10 @@
     border: 1px solid rgba(200,223,200,0.1);
     border-radius: 14px;
     padding: 1.5rem;
-    transition: background 0.2s, transform 0.2s;
+    transition: background 0.2s, transform 0.3s ease, opacity 0.3s ease;
     cursor: pointer;
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
   .species-card:hover {
     background: rgba(255,255,255,0.08);
@@ -478,6 +482,8 @@
     transition: background 0.3s;
   }
   .prog-dot.done { background: var(--leaf); }
+  .prog-dot.correct { background: #2d8a4a; }
+  .prog-dot.wrong { background: #c04030; }
 
   .quiz-box {
     background: white;
@@ -669,6 +675,16 @@
     .hero-stat-row { position: static; flex-direction: row; padding: 2rem 8vw 0; justify-content: flex-start; }
     .hero-stat { text-align: left; }
   }
+
+  /* ── 遷徙地圖流動微動畫 ── */
+  @keyframes flow-line {
+    to {
+      stroke-dashoffset: -20;
+    }
+  }
+  .migration-map svg path[stroke-dasharray] {
+    animation: flow-line 1.2s linear infinite;
+  }
 </style>
 </head>
 <body>
@@ -790,6 +806,24 @@
         </div>
       </div>
     </div>
+
+    <!-- 第五種主要棲息地：平地農田與綠地 -->
+    <div class="habitat-card hab-plains">
+      <div class="habitat-bg"></div>
+      <div class="habitat-overlay"></div>
+      <div class="habitat-info">
+        <div class="hab-tag">平地 · 農田 · 都市</div>
+        <h3>平地農田與綠地</h3>
+        <p>從廣闊的稻田到熱鬧的都市公園，這些與人類活動重疊的區域，是台灣八哥、五色鳥以及各種平地常見鳥類展現強韌生命力的舞台。</p>
+        <div class="hab-birds">
+          <span class="hab-bird-tag">台灣八哥</span>
+          <span class="hab-bird-tag">五色鳥</span>
+          <span class="hab-bird-tag">紅鳩</span>
+          <span class="hab-bird-tag">小雨燕</span>
+          <span class="hab-bird-tag">台灣竹雞</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -809,14 +843,14 @@
   </div>
 
   <div class="species-grid fade-up" id="speciesGrid">
-    <div class="species-card" data-type="endemic">
+    <div class="species-card" data-type="endemic rare">
       <div class="species-icon icon-endemic">🦚</div>
       <h4>帝雉</h4>
       <div class="sci-name">Syrmaticus mikado</div>
       <p>台灣海拔最高的雉科鳥類，雄鳥羽色絢爛，是500元紙幣上的圖案。棲息於海拔2000–3300m的針葉林及箭竹坡地。</p>
       <span class="species-badge badge-endemic">台灣特有種</span>
     </div>
-    <div class="species-card" data-type="rare">
+    <div class="species-card" data-type="rare migratory">
       <div class="species-icon icon-rare">🦢</div>
       <h4>黑面琵鷺</h4>
       <div class="sci-name">Platalea minor</div>
@@ -907,14 +941,14 @@
       <p>台灣體型最大的留棲性猛禽，翼展可達160cm，翱翔於低至中海拔的廣闊森林上空，族群數量稀少，列為珍貴稀有保育類。</p>
       <span class="species-badge badge-rare">珍貴稀有</span>
     </div>
-    <div class="species-card" data-type="rare">
+    <div class="species-card" data-type="rare migratory">
       <div class="species-icon icon-rare">🐦</div>
       <h4>水雉</h4>
       <div class="sci-name">Hydrophasianus chirurgus</div>
       <p>繁殖期雄鳥尾羽修長飄逸，在菱角田上行走如履平地。台南官田是全台最重要的繁殖棲地，族群從瀕危逐步復育中。</p>
       <span class="species-badge badge-rare">珍貴稀有</span>
     </div>
-    <div class="species-card" data-type="endemic">
+    <div class="species-card" data-type="endemic rare">
       <div class="species-icon icon-endemic">🐦</div>
       <h4>黃山雀</h4>
       <div class="sci-name">Machlolophus holsti</div>
@@ -984,7 +1018,7 @@
       <p>過境及冬候鳥，常見於農田、水田與河灘地，以尾部不停上下擺動為特色。每年9月至翌年4月可見於平地。</p>
       <span class="species-badge badge-migrate">冬候鳥</span>
     </div>
-    <div class="species-card" data-type="rare">
+    <div class="species-card" data-type="rare endemic">
       <div class="species-icon icon-rare">🦅</div>
       <h4>熊鷹</h4>
       <div class="sci-name">Nisaetus nipalensis</div>
@@ -1040,8 +1074,8 @@
       <p>台灣特有種，棲息於高山草原與灌叢，鳴聲似蟲鳴般連續顫音，隱身於草叢中幾乎無法目擊，需靠聲音辨識。</p>
       <span class="species-badge badge-endemic">台灣特有種</span>
     </div>
-    <div class="species-card" data-type="endemic">
-      <div class="species-icon icon-endemic">🐦</div>
+    <div class="species-card" data-type="migratory">
+      <div class="species-icon icon-migratory">🐦</div>
       <h4>黑頭翡翠</h4>
       <div class="sci-name">Halcyon pileata</div>
       <p>夏候鳥，頭部黑色、背部深藍、腹部橙白，色彩對比強烈。常停棲於溪邊或農田電線上，俯衝捕食魚蝦與蜥蜴。</p>
@@ -1210,19 +1244,19 @@
       <span class="cons-icon">📊</span>
       <h4>公民科學記錄</h4>
       <p>透過 eBird 等平台記錄賞鳥資料，這些資料成為科學研究與保育政策的重要依據。每一筆記錄都有意義。</p>
-      <span class="cons-btn">了解 eBird Taiwan →</span>
+      <a href="https://ebird.org/taiwan/home" target="_blank" rel="noopener noreferrer" class="cons-btn" id="btn-cons-ebird">了解 eBird Taiwan →</a>
     </div>
     <div class="cons-card">
       <span class="cons-icon">🌿</span>
       <h4>棲地保護與復育</h4>
       <p>支持濕地保育計畫、減少農藥使用、維護溪流廊道，都是保護鳥類棲息環境的重要方式。</p>
-      <span class="cons-btn">棲地保育資訊 →</span>
+      <a href="https://www.bird.org.tw/" target="_blank" rel="noopener noreferrer" class="cons-btn" id="btn-cons-habitat">棲地保育資訊 →</a>
     </div>
     <div class="cons-card">
       <span class="cons-icon">💡</span>
       <h4>友善環境行動</h4>
       <p>減少光害與噪音污染、使用鳥類友善建築玻璃、避免放養貓隻干擾野生鳥類，從日常生活做起。</p>
-      <span class="cons-btn">友善指南 →</span>
+      <a href="https://www.wildlife.org.tw/" target="_blank" rel="noopener noreferrer" class="cons-btn" id="btn-cons-friendly">友善指南 →</a>
     </div>
   </div>
 </section>
@@ -1248,16 +1282,44 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-// SPECIES FILTER
+// SPECIES FILTER ── 精選物種篩選器 ──
+// 此函數支援多重標籤篩選，並在卡片切換時加入優雅的淡入與微縮放 transition 動畫。
 function filterSpecies(type, btn) {
+  // 1. 移除所有分類分頁按鈕的 active 類別，並為目前點選的按鈕加上 active 樣式
   document.querySelectorAll('.species-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+  
+  // 2. 歷遍所有物種卡片，進行多標籤條件匹配與過渡動畫控制
   document.querySelectorAll('.species-card').forEach(card => {
-    card.style.display = (type === 'all' || card.dataset.type === type) ? 'block' : 'none';
+    // 將卡片的 data-type 屬性以空白分割成陣列（支援多重屬性，如 "endemic rare"）
+    const cardTypes = card.dataset.type.split(' ');
+    // 檢查卡片是否符合目前選定的分類（若是 'all' 則無條件符合）
+    const isMatch = (type === 'all' || cardTypes.includes(type));
+    
+    if (isMatch) {
+      // ── 符合條件的卡片 ──
+      // 先將 display 設為 block 使其佔據版面，但保持完全透明且微縮小
+      card.style.display = 'block';
+      // 使用 setTimeout 確保 display: block 已經渲染生效，這樣才能順利播放 CSS transition 動畫
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0) scale(1)';
+      }, 20);
+    } else {
+      // ── 不符合條件的卡片 ──
+      // 先播放漸隱與縮小、往下飄落的動畫
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(10px) scale(0.95)';
+      // 待動畫播放完畢（300ms）後，再將其 display 設為 none，釋放版面空間
+      setTimeout(() => {
+        card.style.display = 'none';
+      }, 300);
+    }
   });
 }
 
-// QUIZ
+// QUIZ ── 知識測驗控制模組 ──
+// questions 陣列儲存了測驗題目、選項、正確答案（0-indexed）與詳細解析。
 const questions = [
   {
     q: '台灣藍鵲（Urocissa caerulea）是台灣特有種，主要棲息於哪種環境？',
@@ -1291,56 +1353,94 @@ const questions = [
   }
 ];
 
-let current = 0, answered = false;
+let current = 0;      // 記錄目前在第幾題 (0-indexed)
+let answered = false; // 標記目前這題是否已經回答，防範重複點選
+let score = 0;        // 【修正 Bug 關鍵】新增 score 變數，精確記錄實際答對的題數！
 
+// 初始化測驗進度點與題目
 function initQuiz() {
+  score = 0;   // 重置得分
+  current = 0; // 重置題號
   const prog = document.getElementById('quizProgress');
+  // 為每道題動態生成進度條中的點點 (prog-dot)
   prog.innerHTML = questions.map((_, i) => `<div class="prog-dot" id="pd${i}"></div>`).join('');
   renderQuestion();
 }
 
+// 渲染當前題目的內容
 function renderQuestion() {
   answered = false;
   const q = questions[current];
+  // 更新題號與題目文字
   document.getElementById('qNum').textContent = `題目 ${current + 1} / ${questions.length}`;
   document.getElementById('qText').textContent = q.q;
+  
+  // 重置回饋區塊
   const fb = document.getElementById('qFeedback');
-  fb.className = 'quiz-feedback'; fb.textContent = '';
+  fb.className = 'quiz-feedback'; 
+  fb.textContent = '';
+  
+  // 隱藏「下一題」按鈕
   document.getElementById('qNext').className = 'quiz-next';
 
+  // 渲染選項按鈕
   const opts = document.getElementById('qOpts');
   opts.innerHTML = q.opts.map((o, i) =>
     `<button class="quiz-opt-btn" onclick="answer(${i})">${o}</button>`
   ).join('');
 }
 
+// 玩家點選選項時觸發的回答函數
 function answer(idx) {
-  if (answered) return;
+  if (answered) return; // 若已經回答過，則直接返回，防範重複作答
   answered = true;
   const q = questions[current];
   const btns = document.querySelectorAll('.quiz-opt-btn');
+  const progDot = document.getElementById(`pd${current}`);
+  
+  // 1. 禁用所有選項按鈕，防止玩家修改答案
   btns.forEach(b => b.disabled = true);
-  btns[idx].classList.add(idx === q.ans ? 'correct' : 'wrong');
-  if (idx !== q.ans) btns[q.ans].classList.add('correct');
+  
+  // 2. 判斷玩家點選的 idx 是否為正確答案
+  const isCorrect = (idx === q.ans);
+  
+  if (isCorrect) {
+    score++; // 【修正 Bug】答對了，累加得分！
+    btns[idx].classList.add('correct'); // 為點選按鈕標記正確樣式
+    progDot.classList.add('correct');   // 進度點亮起綠燈
+  } else {
+    btns[idx].classList.add('wrong');   // 為點選按鈕標記錯誤樣式
+    btns[q.ans].classList.add('correct'); // 自動將正確答案標記為綠色，給予清晰引導
+    progDot.classList.add('wrong');     // 進度點亮起紅燈
+  }
 
+  // 3. 顯示解析回饋
   const fb = document.getElementById('qFeedback');
-  fb.textContent = (idx === q.ans ? '✓ 答對了！' : '✗ 答錯了。') + '　' + q.explain;
-  fb.className = 'quiz-feedback show ' + (idx === q.ans ? 'correct' : 'wrong');
+  fb.textContent = (isCorrect ? '✓ 答對了！' : '✗ 答錯了。') + '　' + q.explain;
+  fb.className = 'quiz-feedback show ' + (isCorrect ? 'correct' : 'wrong');
 
-  document.getElementById(`pd${current}`).classList.add('done');
+  // 4. 將進度點標記為已回答 (.done)，並顯示「下一題」按鈕
+  progDot.classList.add('done');
   document.getElementById('qNext').className = 'quiz-next show';
-  if (current === questions.length - 1) document.getElementById('qNext').textContent = '查看結果 ✓';
+  
+  // 5. 若已是最後一題，按鈕文字變更為「查看結果」
+  if (current === questions.length - 1) {
+    document.getElementById('qNext').textContent = '查看結果 ✓';
+  }
 }
 
+// 進入下一題或結算結果
 function nextQuestion() {
   current++;
   if (current >= questions.length) {
-    const correct = document.querySelectorAll('.prog-dot.done').length;
+    // ── 測驗完成結算 ──
     document.getElementById('qOpts').innerHTML = '';
     document.getElementById('qFeedback').className = 'quiz-feedback';
     document.getElementById('qNext').className = 'quiz-next';
     document.getElementById('qNum').textContent = '測驗完成！';
-    document.getElementById('qText').textContent = `你答對了 ${correct} / ${questions.length} 題！${correct >= 4 ? ' 很棒，你對台灣鳥類有深入的了解！' : correct >= 2 ? ' 還不錯，繼續探索更多鳥類知識吧！' : ' 多閱讀各棲息地的介紹，下次會更好！'}`;
+    
+    // 【修正 Bug】使用精確的 score 變數來輸出最終分數與回饋評語，不再出錯！
+    document.getElementById('qText').textContent = `你答對了 ${score} / ${questions.length} 題！${score >= 4 ? ' 很棒，你對台灣鳥類有深入的了解！' : score >= 2 ? ' 還不錯，繼續探索更多鳥類知識吧！' : ' 多閱讀各棲息地的介紹，下次會更好！'}`;
     return;
   }
   renderQuestion();
