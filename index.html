@@ -654,6 +654,18 @@
     font-size: 1.1rem;
     color: var(--sage);
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-logo-img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+  .nav-logo:hover .nav-logo-img {
+    transform: scale(1.08);
   }
   .nav-links {
     display: flex; gap: 1.8rem; list-style: none;
@@ -690,7 +702,10 @@
 <body>
 
 <nav id="mainNav">
-  <a href="#" class="nav-logo">羽翼台灣</a>
+  <a href="#" class="nav-logo">
+    <img src="nths.png" alt="NTHS Logo" class="nav-logo-img">
+    <span>羽翼台灣</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#habitats">棲息地</a></li>
     <li><a href="#species">物種</a></li>
